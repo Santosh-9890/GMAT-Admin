@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GMAT_Admin.Models.BookingSlots>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<head>
+    <meta charset="utf-8">
+    <link href="~/Content/HTMLtable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#bookedDate").datepicker();
+        });
+    </script>
+</head>
+<h1>Booking List</h1>
+@using (Html.BeginForm("GetBookedDateSlot", "BookingSlots", "FormMethod.Post"))
+{
+    <div class="row">
+        <div class="col-md-3">
+            <p>Date: @*<input type="text" id="datepicker" value="test" />*@</p>
+            @Html.TextBox("bookedDate");
+            @*@Html.TextBoxFor(model => model.FirstOrDefault().BookingDate,new { htmlAttributes = new { @class = "form-control" } })*@
+
+
+            @* @Html.TextBox("datepicker", null, new { @class = "form-control" })*@
+
+            @*@Html.TextBoxFor(Model=>Model.)*@
+            @* @Html.TextBoxFor()*@
+
+        </div>
+        <div class="col-md-4">
+            <input type="submit" class="btn-default col-md-4 submitBtn" />
+        </div>
+    </div>
+
+    <table class="rwd-table">
+        <tr>
+            <th>Player Name</th>
+            <th>Mobile</th>
+            <th>Booking from</th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td data-th="Movie Title">@item.FullName</td>
+                    <td data-th="Genre">@item.UserMobileNo</td>
+                    <td data-th="Year">@item.BookingSlotFrom.Hour - @item.BookingSlotTo.Hour</td>
+                </tr>
+
+            }
+        }
+        else
+        {
+            <tr>
+                <td data-th="Movie Title">Records Not Found</td>
+            </tr>
+        }
+
+    </table>
+}
+
+
